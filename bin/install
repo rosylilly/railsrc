@@ -1,0 +1,59 @@
+#!/bin/bash
+
+usage() {
+  echo "Usage: $0" 1>&2
+  echo "  install ~/.railsrc" 1>&2
+  echo "    -f : force copy" 1>&2
+  echo "    -p [file] : install path" 1>&2
+  echo "    -h : show usage" 1>&2
+  exit 1
+}
+
+abs_dirname() {
+  local cwd="$(pwd)"
+  local path="$1"
+
+  while [ -n "$path" ]; do
+    cd "${path%/*}"
+    local name="${path##*/}"
+    path="$(readlink "$name" || true)"
+  done
+
+  pwd -P
+  cd "$cwd"
+}
+
+RAILSRC=~/.railsrc
+FORCE=false
+
+while getopts fp:h OPT
+do
+  case $OPT in
+    f)  FORCE=true
+      ;;
+    p)  RAILSRC=$OPTARG
+      ;;
+    h)  usage
+      ;;
+    \?) usage
+      ;;
+  esac
+done
+
+SCRIPTDIR="$(abs_dirname "$0")"
+PROJECTDIR=${SCRIPTDIR%/*}
+TMPDIR=${PROJECTDIR}/tmp
+
+if [ -f ${RAILSRC} ] && ! $FORCE; then
+  echo "${RAILSRC} is already exists" 1>&2
+  exit 1
+fi
+
+if [ ! -d ${TMPDIR} ]; then
+  mkdir ${TMPDIR}
+fi
+
+cat ${PROJECTDIR}/.railsrc > ${TMPDIR}/.railsrc
+echo "--template=${PROJECTDIR}/template.rb" >> ${TMPDIR}/.railsrc
+
+ln -fs ${TMPDIR}/.railsrc ${RAILSRC}

@@ -1,0 +1,4 @@
+--skip-action-cable
+--skip-coffee
+--skip-turbolinks
+--skip-test
