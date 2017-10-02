@@ -1,0 +1,1 @@
+generate 'ridgepole:install'

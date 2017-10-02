@@ -1,0 +1,14 @@
+doctype 5
+html(lang="#{I18n.locale}" class="#{controller_path.tr('/', '-')}-controller #{action_name}-action")
+  head
+    meta(charset="utf-8")
+    = display_meta_tags(default_meta_tags)
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application', async: true
+    = csrf_meta_tags
+    = content_for?(:head) ? yield(:head) : nil
+  body
+    - if content_for?(:body)
+      = yield(:body)
+    - else
+      = yield
