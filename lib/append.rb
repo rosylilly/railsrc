@@ -4,4 +4,5 @@ append_to_file '.gitignore', <<-CODE
 /coverage
 /vendor/bundle
 !.envrc
+/app/assets/javascripts/*
 CODE

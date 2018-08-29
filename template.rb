@@ -15,6 +15,7 @@ end
 
 after_bundle do
   %w[
+    bundler
     locale_kit
     canonical_rails
     ridgepole

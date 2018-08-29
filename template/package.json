@@ -5,17 +5,16 @@
   "main": "index.js",
   "author": "<%= `git config user.name`.strip %> <<%= `git config user.email`.strip %>>",
   "scripts": {
-    "postinstall": "yarn build",
     "build": "webpack",
     "start": "webpack --watch"
   },
   "devDependencies": {
     "deepmerge": ">= 1.5.1",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^8.0.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
-    "webpack": "^3.6.0"
+    "webpack": "^4.17.1"
   }
 }
 
